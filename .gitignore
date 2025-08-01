@@ -1,0 +1,25 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Root-level .env (just in case)
+.env
+
+# Node modules anywhere
+**/node_modules/
+
+# Expo & React Native
+**/.expo/
+**/.expo-shared/
+*.log
+
+# Ignore built files (if any)
+**/build/
+**/dist/
+
+# Ignore IDE configs
+.vscode/
+.idea/

@@ -1,0 +1,4 @@
+
+| `npm run start`       | Starts the app in production mode  |
+| `npm run start:dev`   | Starts with auto-reload (dev mode) |
+| `npm run start:debug` | Starts in debug mode (for VS Code) |
