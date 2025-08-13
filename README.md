@@ -1,12 +1,12 @@
 📱 Indian Stock Market Paper Trading App
-A high-quality, mobile-only social paper trading app built using React Native (Expo). It simulates real trading in the Indian stock market, including Options, Futures, and Equity, allowing users to learn, practice, and compete without real money.
+A high-quality, mobile-only social paper trading app built using React Native . It simulates real trading in the Indian stock market, for  Options, allowing users to learn, practice, and compete without real money.
 
 🚀 Features
 📈 Live-like Market Simulation
 Real-time position updates, P&L tracking, and margin management.
 
 💰 Paper Trading Engine
-Simulated options, futures, and equity trades.
+Simulated options equity trades.
 
 🧠 Performance Tracking
 Auto-logs closed positions in the Performance screen with visual P&L.
@@ -21,7 +21,7 @@ Seamless login/signup flow.
 Clean, professional UI inspired by FrontPage and Groww (Charcoal theme #1C1C1E).
 
 🛠️ Tech Stack
-React Native (Expo)
+React Native CLI
 
 TypeScript
 
