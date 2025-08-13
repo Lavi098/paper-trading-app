@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+//import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { closePosition } from '../slices/tradeSlice';
+import { closePosition, updateLtp } from '../slices/tradeSlice';
 
 export default function PositionScreen() {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,6 +19,21 @@ export default function PositionScreen() {
 
   const unrealised = openPositions.reduce((sum, pos) => sum + pos.pnl, 0);
   const invested = openPositions.reduce((sum, pos) => sum + pos.entry * pos.qty, 0);
+
+    // Start mock price feed for real-time updates
+  useEffect(() => {
+    if (openPositions.length > 0) {
+      const interval = setInterval(() => {
+        openPositions.forEach(pos => {
+          // Simulate price change
+          const change = (Math.random() - 0.5) * 10;
+          const newLtp = Math.max(1, pos.ltp + change);
+          dispatch(updateLtp({ id: pos.id, ltp: newLtp }));
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [openPositions, dispatch]);
 
   const renderPosition = ({ item }: { item: typeof openPositions[0] }) => (
     <View style={styles.card}>
@@ -39,7 +55,7 @@ export default function PositionScreen() {
     </View>
   );
 
-  return (
+  /*return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.summaryCard}>
         <Text style={styles.label}>
@@ -68,7 +84,27 @@ export default function PositionScreen() {
           contentContainerStyle={{ paddingBottom: 80 }}
         />
       )}
-    </SafeAreaView>
+    </SafeAreaView>*/
+
+
+     return (
+    <View style={styles.container}>
+      <View style={styles.summaryCard}>
+        <Text style={styles.label}>Available Margin: ₹{availableMargin.toFixed(2)}</Text>
+        <Text style={styles.label}>Invested: ₹{invested.toFixed(2)}</Text>
+        <Text style={styles.label}>Unrealised P&L: <Text style={{ color: unrealised >= 0 ? '#00FF8F' : '#FF3B30' }}>₹{unrealised.toFixed(2)}</Text></Text>
+      </View>
+      {openPositions.length === 0 ? (
+        <Text style={styles.emptyText}>No open positions.</Text>
+      ) : (
+        <FlatList
+          data={openPositions}
+          keyExtractor={item => item.id}
+          renderItem={renderPosition}
+          contentContainerStyle={{ paddingBottom: 80 }}
+        />
+      )}
+    </View>
   );
 }
 

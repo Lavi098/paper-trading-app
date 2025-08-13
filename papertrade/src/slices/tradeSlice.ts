@@ -33,6 +33,10 @@ const initialState: TradesState = {
 /* ------------------------------------------------------------------ */
 /*  Slice                                                             */
 /* ------------------------------------------------------------------ */
+
+
+
+
 const tradeSlice = createSlice({
   name: 'trades',
   initialState,
@@ -60,7 +64,7 @@ const tradeSlice = createSlice({
       }
     },
 
-    updateLTP: (
+   /* updateLTP: (
       state,
       action: PayloadAction<{ symbol: string; ltp: number }>
     ) => {
@@ -72,11 +76,27 @@ const tradeSlice = createSlice({
           (pos.side === 'BUY' ? ltp - pos.entry : pos.entry - ltp) * pos.qty;
         pos.pnl = +pnl.toFixed(2);
       }
+    },*/
+
+    //new
+ 
+    updateLtp: (
+      state,
+      action: PayloadAction<{ id: string; ltp: number }>
+    ) => {
+      const pos = state.openPositions.find(p => p.id === action.payload.id);
+      if (pos) {
+        pos.ltp = action.payload.ltp;
+        const pnl =
+          (pos.side === 'BUY' ? action.payload.ltp - pos.entry : pos.entry - action.payload.ltp) * pos.qty;
+        pos.pnl = +pnl.toFixed(2);
+      }
     },
+
   },
 });
 
-export const { _addPosition, _closePosition, updateLTP } = tradeSlice.actions;
+export const { _addPosition, _closePosition, updateLtp } = tradeSlice.actions;
 export default tradeSlice.reducer;
 
 /* ------------------------------------------------------------------ */
