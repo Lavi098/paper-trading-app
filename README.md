@@ -1,3 +1,5 @@
+demo video - https://github.com/Lavi098/paper-trading-app/blob/main/demovideo.gif
+
 📱 Indian Stock Market Paper Trading App
 A high-quality, mobile-only social paper trading app built using React Native . It simulates real trading in the Indian stock market, for  Options, allowing users to learn, practice, and compete without real money.
 
